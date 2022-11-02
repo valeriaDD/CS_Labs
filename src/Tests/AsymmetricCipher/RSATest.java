@@ -5,7 +5,6 @@ import Interfaces.AsymmetricCiphers.IAsymmetricCipher;
 import org.junit.Test;
 
 import java.math.BigInteger;
-import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -33,5 +32,27 @@ public class RSATest {
         String decrypted = rsa2.decrypt(encrypted);
 
         assertNotEquals(plaintext.toUpperCase(), decrypted);
+    }
+
+    @Test
+    public void encryptionAndDecryptionOfNumbersShouldPass() {
+        IAsymmetricCipher rsa = new RSA();
+        String plaintext = "22";
+
+        BigInteger encrypted = rsa.encrypt(plaintext);
+        String decrypted = rsa.decrypt(encrypted);
+
+        assertEquals(plaintext.toUpperCase(), decrypted);
+    }
+
+    @Test
+    public void encryptionAndDecryptionOfSpecialCharactersShouldPass() {
+        IAsymmetricCipher rsa = new RSA();
+        String plaintext = "!@#$$$$$$%^&*()_:;+=";
+
+        BigInteger encrypted = rsa.encrypt(plaintext);
+        String decrypted = rsa.decrypt(encrypted);
+
+        assertEquals(plaintext.toUpperCase(), decrypted);
     }
 }
