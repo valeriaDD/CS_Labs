@@ -42,13 +42,23 @@ public class UserManagementService {
         return user.getPasswordHash().equals(hashedPassword);
     }
 
+    public User getUser(String email) throws Exception {
+        User user = database.getUser(email);
+
+        if (user == null) {
+            throw new Exception("Invalid email or password");
+        }
+
+        return user;
+    }
+
     public boolean isCorrectSignature(String email, String message, byte[] signature) throws Exception {
         User user = database.getUser(email);
         if (user == null) {
             throw new Exception("Invalid email or password");
         }
 
-        Signature ecdsaSignature = Signature.getInstance("SHA256withECDSA");
+        Signature ecdsaSignature = Signature.getInstance("SHA256withRSA");
         ecdsaSignature.initVerify(user.getPublicKey());
         ecdsaSignature.update(message.getBytes());
 
