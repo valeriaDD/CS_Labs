@@ -21,7 +21,7 @@ public class MfaService {
         return new QrData.Builder()
                 .label(email)
                 .secret(secret)
-                .issuer("CsLabsMFA")
+                .issuer("Miaw")
                 .algorithm(HashingAlgorithm.SHA1)
                 .build();
     }

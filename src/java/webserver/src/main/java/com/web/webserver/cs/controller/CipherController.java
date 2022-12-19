@@ -10,22 +10,23 @@ import org.springframework.web.bind.annotation.*;
 import java.math.BigInteger;
 
 @RestController
-@RequestMapping("/api/cipher")
 @RequiredArgsConstructor
 public class CipherController {
 
     @GetMapping("/caesar")
-    @PreAuthorize("hasAuthority('CLASSIC')")
+    @PreAuthorize("hasRole('CLASSIC')")
     @ResponseStatus(HttpStatus.OK)
     public String caesarCipher(@RequestParam String message, @RequestParam int shift) {
         CaesarCipher caesar = new CaesarCipher();
-        String encryptedCaesar = caesar.encrypt(message, shift);
 
-        return "Encrypted: " + encryptedCaesar + "  .  " +  "Decrypted: " + caesar.decrypt(encryptedCaesar, shift);
+        String encrypted = caesar.encrypt(message, shift);
+        String decrypted = caesar.decrypt(encrypted, shift);
+
+        return "Caesar: Encrypted: " + encrypted + "  .  " +  "Decrypted: " + decrypted;
     }
 
     @GetMapping("/rsa")
-    @PreAuthorize("hasAuthority('ASYMMETRIC')")
+    @PreAuthorize("hasRole('ASYMMETRIC')")
     @ResponseStatus(HttpStatus.OK)
     public String asymmetricCipher(@RequestParam String message) {
         RSA rsa = new RSA();
@@ -33,6 +34,6 @@ public class CipherController {
         BigInteger encrypted = rsa.encrypt(message);
         String decrypted = rsa.decrypt(encrypted);
 
-        return "Encrypted: " + encrypted + "  .  " +  "Decrypted: " + decrypted;
+        return "RSA: Encrypted: " + encrypted + "  .  " +  "Decrypted: " + decrypted;
     }
 }

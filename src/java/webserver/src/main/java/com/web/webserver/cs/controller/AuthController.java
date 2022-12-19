@@ -1,5 +1,6 @@
 package com.web.webserver.cs.controller;
 
+import com.web.webserver.cs.request.ConfirmRequest;
 import com.web.webserver.cs.request.LoginRequest;
 import com.web.webserver.cs.request.RegisterRequest;
 import com.web.webserver.cs.service.AuthService;
@@ -32,7 +33,7 @@ public class AuthController {
     }
 
     @PostMapping("/confirm")
-    public ResponseEntity<?> confirmMfa(@RequestParam String code) throws Exception {
-        return authService.confirm(code);
+    public ResponseEntity<?> confirmMfa(@RequestBody ConfirmRequest confirm) throws Exception {
+        return authService.confirm(confirm.code());
     }
 }

@@ -44,7 +44,7 @@ public class AuthService {
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         String secret = mfaService.generateSecret();
         userService.save(
-                userService.findByEmail(userDetails.getEmail())
+                userService.findByEmail(userDetails.getEmail()).setSecret(secret)
         );
 
         return mfaService.generateQrPng(secret, userDetails.getEmail());
