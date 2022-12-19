@@ -1,6 +1,6 @@
-package tests.digitalsigrature;
+package com.web.webserver.digitalsigrature;
 
-import database.services.UserManagementService;
+import com.web.webserver.database.services.UserManagementService;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;

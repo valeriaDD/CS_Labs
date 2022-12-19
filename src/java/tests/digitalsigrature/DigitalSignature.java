@@ -1,7 +1,7 @@
-package tests.digitalsigrature;
+package com.web.webserver.digitalsigrature;
 
-import database.records.User;
-import database.services.UserManagementService;
+import com.web.webserver.database.records.User;
+import com.web.webserver.database.services.UserManagementService;
 import org.junit.Test;
 
 import java.security.PrivateKey;
