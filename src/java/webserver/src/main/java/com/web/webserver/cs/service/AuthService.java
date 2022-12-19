@@ -9,16 +9,15 @@ import com.web.webserver.cs.response.JwtResponse;
 import com.web.webserver.cs.security.JwtUtils;
 import com.web.webserver.cs.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.security.auth.message.AuthException;
 import java.util.HashSet;
@@ -49,14 +48,13 @@ public class AuthService {
         );
 
         return mfaService.generateQrPng(secret, userDetails.getEmail());
-
     }
 
     public ResponseEntity<?> confirm(String code) throws Exception {
         Object principal;
         if(sc.getAuthentication() != null)
             principal = sc.getAuthentication().getPrincipal();
-        else throw new Exception("nope");
+        else throw new Exception();
 
         String email;
         if (principal instanceof UserDetails) {

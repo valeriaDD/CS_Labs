@@ -3,9 +3,7 @@ package com.web.webserver.cs.service;
 import com.web.webserver.cs.models.User;
 import com.web.webserver.cs.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.stereotype.Service;
-
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;

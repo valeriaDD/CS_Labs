@@ -4,7 +4,6 @@ import com.web.webserver.cs.request.LoginRequest;
 import com.web.webserver.cs.request.RegisterRequest;
 import com.web.webserver.cs.service.AuthService;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.security.auth.message.AuthException;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequiredArgsConstructor
 public class AuthController {
@@ -20,19 +18,20 @@ public class AuthController {
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    public void registerUser(RegisterRequest registerRequest) throws Exception {
+    public String registerUser(@RequestBody RegisterRequest registerRequest) throws Exception {
         authService.register(registerRequest);
+        return registerRequest.toString();
     }
 
     @PostMapping(
             value = "/login",
             produces = MediaType.IMAGE_PNG_VALUE
     )
-    public @ResponseBody byte[] createQrAfterLogging(LoginRequest loginRequest) throws AuthException {
+    public @ResponseBody byte[] createQrAfterLogging(@RequestBody LoginRequest loginRequest) throws AuthException {
         return authService.login(loginRequest);
     }
 
-    @PostMapping("/confirm-with-mfa")
+    @PostMapping("/confirm")
     public ResponseEntity<?> confirmMfa(@RequestParam String code) throws Exception {
         return authService.confirm(code);
     }
